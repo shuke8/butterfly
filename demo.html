@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Butterfly Animation Demo</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f5f5f5;
+      min-height: 200vh;
+      color: #333;
+    }
+    .header {
+      background: linear-gradient(135deg, #1a5276, #2980b9);
+      color: white;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header h1 { font-size: 24px; font-weight: 600; }
+    .header nav a {
+      color: rgba(255,255,255,0.9);
+      text-decoration: none;
+      margin-left: 30px;
+      font-size: 14px;
+    }
+    .hero {
+      background: linear-gradient(135deg, #2c3e50, #3498db);
+      color: white;
+      padding: 80px 40px;
+      text-align: center;
+    }
+    .hero h2 { font-size: 36px; margin-bottom: 15px; }
+    .hero p { font-size: 18px; opacity: 0.8; max-width: 600px; margin: 0 auto; }
+    .content {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 8px;
+      padding: 30px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .card h3 { margin-bottom: 10px; color: #1a5276; }
+    .card p { line-height: 1.6; color: #555; }
+    #dbg {
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.8);
+      color: #0f0;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 12px;
+      z-index: 999999;
+      white-space: pre;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>РОЛ-СТРОЙ</h1>
+    <nav>
+      <a href="#">Главная</a>
+      <a href="#">Объекты</a>
+      <a href="#">Услуги</a>
+      <a href="#">Контакты</a>
+    </nav>
+  </div>
+
+  <div class="hero">
+    <h2>Строительная компания</h2>
+    <p>Демо анимации бабочек. Большая бабочка — внизу слева, две маленькие — вверху справа.</p>
+  </div>
+
+  <div class="content">
+    <div class="card">
+      <h3>Наши объекты</h3>
+      <p>Мы специализируемся на строительстве жилых и коммерческих объектов. Наша команда профессионалов обеспечивает высокое качество на каждом этапе строительства.</p>
+    </div>
+    <div class="card">
+      <h3>Почему мы</h3>
+      <p>Более 15 лет опыта в строительной отрасли. Используем только проверенные материалы и современные технологии строительства.</p>
+    </div>
+    <div class="card">
+      <h3>Наши услуги</h3>
+      <p>Проектирование, строительство, ремонт и отделка. Полный цикл строительных работ под ключ.</p>
+    </div>
+  </div>
+
+  <div id="dbg">Loading...</div>
+
+  <script src="butterfly-animation.js"></script>
+  <script>
+    var dbg = document.getElementById('dbg');
+    function updateDbg() {
+      if (window.ButterflyAnimation && window.ButterflyAnimation.butterflies) {
+        var bs = window.ButterflyAnimation.butterflies;
+        var txt = 'Butterflies: ' + bs.length + '\n';
+        bs.forEach(function(b) {
+          txt += b.cfg.id + ': ' + b.state + ' pos=(' + (b.x|0) + ',' + (b.y|0) + ') flap=' + b.flapAngle.toFixed(0) + '°\n';
+        });
+        dbg.textContent = txt;
+      } else {
+        dbg.textContent = 'ButterflyAnimation not loaded!';
+      }
+      requestAnimationFrame(updateDbg);
+    }
+    updateDbg();
+  </script>
+
+</body>
+</html>
